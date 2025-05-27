@@ -1,10 +1,12 @@
-
-
-
-
+from order import Order
 class Customer:
     def __init__(self,name):
         self.name = name
+        
+
+    def create_order(self,coffee,price):
+        order=Order(self,coffee,price) 
+        return order 
 
 
     @property
@@ -17,11 +19,9 @@ class Customer:
             self._name =value
         else:
             raise ValueError("Name must be a string") 
-
+    @property
     def orders(self):
-        from order import Order
         return [order for order in Order.all_orders if order.customer==self ]        
-    
+    @property
     def coffees(self):
-        from order import Order
-        return list({order.coffee for order in Order.all_orders if order.coffee == self})
+        return list({order.coffee for order in Order.all_orders if order.customer == self})
